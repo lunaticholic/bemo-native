@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons"
 import LoggedOutNav from './navigators/LoggedOutNav';
 import { NavigationContainer } from '@react-navigation/native';
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
-import client, { isLoggedInVar } from "./apollo";
+import client, { isLoggedInVar, tokenVar } from "./apollo";
 import LoggedInNav from "./navigators/LoggedInNav";
 
 export default function App() {
@@ -18,8 +18,8 @@ export default function App() {
 
   const isLoggedIn = useReactiveVar(isLoggedInVar);
 
-  // 앱 로딩을 시작하면 시작한다고 알려주는 기능, preload는 항상 promise를 리턴해야됨
-  const preload = () => {
+  // 앱 로딩을 시작하면 시작한다고 알려주는 기능, preloadAssets는 항상 promise를 리턴해야됨
+  const preloadAssets = () => {
     // ionicons 아이콘을 로드해옴
     const fontsToLoad = [Ionicons.font];
     const fontPromises = fontsToLoad.map(font => Font.loadAsync(font));
@@ -29,6 +29,16 @@ export default function App() {
     const imagePromises = imagesToLoad.map(image => Asset.loadAsync(image))
     return Promise.all([...fontPromises, ...imagePromises]);
   }
+
+  // token을 얻어보자 얻어내자!
+  const preload = async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      isLoggedInVar(true);
+      tokenVar(token);
+    }
+    return preloadAssets();
+  };
 
   // 앱을 로딩중일 때 앱 로딩을 표시하는 화면을 만들어주는 기능
   if (loading) {
