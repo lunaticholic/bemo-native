@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { ApolloProvider, useReactiveVar } from "@apollo/client";
 import client, { isLoggedInVar, tokenVar } from "./apollo";
 import LoggedInNav from "./navigators/LoggedInNav";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   // 앱을 로딩중일 때 앱 로딩을 표시하는 화면을 만들어주는 기능
