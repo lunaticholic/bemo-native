@@ -37,6 +37,7 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
+        {/* 만약 로그인이 되어 있다면, feed화면이 보이고 로그아웃했으면 홈 화면이 보일거임 */}
         {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
       </NavigationContainer>
     </ApolloProvider>
