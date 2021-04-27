@@ -19,7 +19,7 @@ export default function LoggedOutNav() {
             headerBackTitleVisible: false
         }}>
             {/* stack.screen은 말 그대로 화면이라고 생각하면 된다. */}
-            <Stack.Screen name="Welcome" component={Welcome} />
+            <Stack.Screen name="Welcome" options={{ headerShown: false }} component={Welcome} />
             <Stack.Screen name="LogIn" component={LogIn} />
             <Stack.Screen name="CreateAccount" component={CreateAccount} />
         </Stack.Navigator>
