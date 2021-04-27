@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/native"
-import { TouchableOpacity, View } from "react-native";
 import { colors } from "../colors";
+import { TouchableOpacity, View } from "react-native";
 
 const Container = styled.View`
     flex: 1;
@@ -13,12 +13,13 @@ const Logo = styled.Image`
     max-width: 70%;
 `;
 
-const CreateAccount = styled.View`
+const CreateAccount = styled.TouchableOpacity`
     background-color: ${colors.blue};
     padding: 7px 10px;
     border-radius: 7px;
     position: relative;
-    top: 230px;
+    top: 220px;
+    opacity: ${(props) => props.disabled ? "0.5" : "1"};
 `;
 const CreateAccountText = styled.Text`
     color: white;
@@ -30,7 +31,7 @@ const LoginLink = styled.Text`
     color: ${colors.blue};
     font-weight: 700;
     position: relative;
-    top: 250px;
+    top: 260px;
     font-size: 16px;
 `;
 
@@ -40,11 +41,11 @@ export default function Welcome({ navigation }) {
     return (
         <Container>
             <Logo resizeMode="contain" source={require("../assets/login_logo.png")} />
-            <TouchableOpacity onPress={goToCreateAccount}>
-                <CreateAccount>
-                    <CreateAccountText>Create Account</CreateAccountText>
-                </CreateAccount>
-            </TouchableOpacity>
+            <CreateAccount disabled={false} onPress={goToCreateAccount}>
+                <CreateAccountText>
+                    Create Account
+                </CreateAccountText>
+            </CreateAccount>
             <TouchableOpacity onPress={goToLogin}>
                 <LoginLink>
                     Log In

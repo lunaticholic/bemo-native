@@ -1,12 +1,19 @@
 import React from "react";
-import { Text, View } from "react-native";
+import styled from "styled-components/native"
+import { colors } from "../colors";
+import { TouchableOpacity, View } from "react-native";
+
+const Container = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+`;
 
 export default function CreateAccount() {
     return (
-        <View>
-            <Text>
-                Create Account Page!
-            </Text>
-        </View>
+        <Container>
+            
+        </Container>
     )
 }
