@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Asset } from "expo-asset";
 import { Ionicons } from "@expo/vector-icons"
 import LoggedOutNav from './navigators/LoggedOutNav';
+import { AppearanceProvider } from 'react-native-appearance';
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
@@ -30,8 +31,8 @@ export default function App() {
     return <AppLoading startAsync={preload} onError={console.warn} onFinish={onFinish} />
   }
   return (
-    <NavigationContainer>
-      <LoggedOutNav />
-    </NavigationContainer>
+      <NavigationContainer>
+        <LoggedOutNav />
+      </NavigationContainer>
   );
 }
