@@ -3,7 +3,7 @@ import AuthButton from "../components/auth/AuthButton";
 import AuthLayout from "../components/auth/AuthLayout";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { isLoggedInVar } from "../apollo";
+import { isLoggedInVar, logUserIn } from "../apollo";
 import { gql, useMutation } from "@apollo/client";
 import { TextInput } from "../components/auth/AuthShared";
 
@@ -29,9 +29,9 @@ export default function Login({ route: { params } }) {
     const passwordRef = useRef();
     
     // 서버가 리턴한 데이터를 전달한다는 사실을 명심해야됨. ok, token 반환하는거 보이지?
-    const onCompleted = (data) => {
+    const onCompleted = async (data) => {
         const { login: { ok, token } } = data;
-        if (ok) { isLoggedInVar(true); }
+        if (ok) { await logUserIn(token); }
         // console.log(data);
     };
     
