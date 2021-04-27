@@ -1,4 +1,5 @@
 import React from "react";
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import styled from "styled-components/native";
 
 const Container = styled.View`
@@ -17,10 +18,17 @@ const Logo = styled.Image`
 `;
 
 export default function AuthLayout({ children }) {
+    // 키보드 입력하는 중인데 빈 공간을 클릭하면 키보드가 사라진다.
+    const dismissKeyboard = () => {
+        Keyboard.dismiss();
+    }
     return (
-        <Container>
-        <Logo resizeMode="contain" source={require("../../assets/login_logo.png")} />
-        {children}
-        </Container>
+        // 이 녀석은 Touchable과 비슷한데 시각적 효과는 보여주지 않는다
+        <TouchableWithoutFeedback style={{ flex: 1 }} onPress={dismissKeyboard}>
+            <Container>
+                <Logo resizeMode="contain" source={require("../../assets/login_logo.png")} />
+                {children}
+            </Container>
+        </TouchableWithoutFeedback>
     );
 }
