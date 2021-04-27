@@ -44,7 +44,7 @@ export default function Feed() {
     return (
         <ScreenLayout loading={loading}>
             <FlatList 
-                onEndReachedThreshold={0.05}
+                onEndReachedThreshold={0.02}
                 onEndReached={() => fetchMore({ variables: { offset: data?.seeFeed?.length } }) }
                 refreshing={refreshing} onRefresh={refresh} style={{ width: "100%" }} showsVerticalScrollIndicator={false} data={data?.seeFeed} keyExtractor={(photo) => "" + photo.id} renderItem={renderPhoto} />
         </ScreenLayout>
