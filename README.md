@@ -11,3 +11,7 @@
 ### npm install @react-navigation/native
 
 ### npm install react-navigation-stack
+
+### npm install @apollo/client graphql
+
+### npm install @react-navigation/bottom-tabs

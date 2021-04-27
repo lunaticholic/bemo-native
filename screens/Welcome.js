@@ -11,6 +11,7 @@ const LoginLink = styled.Text`
     position: relative;
     top: 50px;
     font-size: 20px;
+    text-align: center;
 `;
 
 export default function Welcome({ navigation }) {

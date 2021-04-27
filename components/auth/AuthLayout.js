@@ -14,7 +14,8 @@ const Logo = styled.Image`
     max-width: 70%;
     width: 100%;
     height: 100px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+    margin: 0 auto 20px;
 `;
 
 export default function AuthLayout({ children }) {
@@ -24,7 +25,8 @@ export default function AuthLayout({ children }) {
     }
     return (
         // 이 녀석은 Touchable과 비슷한데 시각적 효과는 보여주지 않는다
-        <TouchableWithoutFeedback style={{ flex: 1 }} onPress={dismissKeyboard}>
+        // disabled에 platform을 web으로 하면 키보드입력하는 액션 취소를 막아준다.
+        <TouchableWithoutFeedback style={{ flex: 1 }} onPress={dismissKeyboard} disabled={Platform.OS === "web"}>
             <Container>
                 {/* 입력칸이 키보드에 가리니까 가리는걸 없애주자, behavior를 padding으로 설정하면 마치 폼 전체가 위아래로 움직이는 느낌이 든다. */}
                 {/* keyboardVerticalOffset은 키보드와 contents 간의 간격인데 여기서는 platform os가 ios면 30의 간격을 넓히라고 하였다 */}

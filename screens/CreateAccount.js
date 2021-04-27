@@ -1,9 +1,13 @@
 import React, { useRef } from "react";
 import AuthButton from "../components/auth/AuthButton";
 import AuthLayout from "../components/auth/AuthLayout";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { TextInput } from "../components/auth/AuthShared";
 
 export default function CreateAccount() {
+    const { register, handleSubmit, setValue } = useForm();
+
     const userNameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -14,9 +18,22 @@ export default function CreateAccount() {
     }
 
     // 키보드에서 done을 누르면 마치 Create Account를 누른 것과 같은 기능
-    const onDone = () => {
-        alert("회원가입이 완료되었습니다.");
+    const onValid = (data) => {
+        console.log(data);
     }
+
+    useEffect(() => {
+        register("username", {
+            required: true,
+        });
+        register("email", {
+            required: true,
+        });
+        register("password", {
+            required: true,
+        });
+    }, [register]);
+
     return (
         <AuthLayout>
             <TextInput
@@ -24,8 +41,10 @@ export default function CreateAccount() {
                 placeholder="USERNAME"
                 placeholderTextColor="gray"
                 returnKeyType="next"
+                autoCapitalize="none"
                 placeholderTextColor={"rgba(255, 255, 255, 0.6)"}
                 onSubmitEditing={() => onNext(emailRef)}
+                onChangeText={(text) => setValue("username", text)}
             />
             
             {/* keyboardType을 email-address로 하면 키보드가 자동으로 email입력방식으로 바뀐다. */}
@@ -35,8 +54,10 @@ export default function CreateAccount() {
                 placeholderTextColor="gray"
                 keyboardType="email-address"
                 returnKeyType="next"
+                autoCapitalize="none"
                 placeholderTextColor={"rgba(255, 255, 255, 0.6)"}
                 onSubmitEditing={() => onNext(passwordRef)}
+                onChangeText={(text) => setValue("email", text)}
             />
             
             {/* secureTextEntry로 하게 되면 비밀번호처럼 보여주고, 첫 문자를 대문자로 입력하는걸 방지해준다. */}
@@ -48,10 +69,11 @@ export default function CreateAccount() {
                 returnKeyType="done"
                 placeholderTextColor={"rgba(255, 255, 255, 0.6)"}
                 lastOne={true}
-                onSubmitEditing={onDone}
+                onChangeText={(text) => setValue("password", text)}
+                onSubmitEditing={handleSubmit(onValid)}
             />
 
-            <AuthButton text="Create Account" disabled={true} onPress={() => null}/>
+            <AuthButton text="Create Account" disabled={false} onPress={handleSubmit(onValid)} />
         </AuthLayout>
         
     )

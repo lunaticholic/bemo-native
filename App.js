@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import { Asset } from "expo-asset";
 import { Ionicons } from "@expo/vector-icons"
 import LoggedOutNav from './navigators/LoggedOutNav';
-import { AppearanceProvider } from 'react-native-appearance';
 import { NavigationContainer } from '@react-navigation/native';
+import { ApolloProvider, useReactiveVar } from "@apollo/client";
+import client, { isLoggedInVar } from "./apollo";
+import LoggedInNav from "./navigators/LoggedInNav";
 
 export default function App() {
   // 앱을 로딩중일 때 앱 로딩을 표시하는 화면을 만들어주는 기능
@@ -13,6 +15,8 @@ export default function App() {
   
   // 앱 로딩이 끝나면 끝났다고 알려주는 기능
   const onFinish = () => setLoading(false);
+
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
 
   // 앱 로딩을 시작하면 시작한다고 알려주는 기능, preload는 항상 promise를 리턴해야됨
   const preload = () => {
@@ -31,8 +35,10 @@ export default function App() {
     return <AppLoading startAsync={preload} onError={console.warn} onFinish={onFinish} />
   }
   return (
+    <ApolloProvider client={client}>
       <NavigationContainer>
-        <LoggedOutNav />
+        {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
       </NavigationContainer>
+    </ApolloProvider>
   );
 }
