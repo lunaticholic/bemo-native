@@ -16,12 +16,15 @@ export default function LoggedOutNav() {
         // creen은 화면전체가(헤더포함) 움직이면서 이동한다
         // option도 있는데, 이건 각각의 화면으로 값들을 보낼 수 있다.
         <Stack.Navigator screenOptions={{
-            headerBackTitleVisible: false
+            headerBackTitleVisible: false,
+            headerTitle: false,
+            headerTransparent: true,
+            headerTintColor: "white"
         }}>
             {/* stack.screen은 말 그대로 화면이라고 생각하면 된다. */}
             <Stack.Screen name="Welcome" options={{ headerShown: false }} component={Welcome} />
             <Stack.Screen name="LogIn" options={{ headerShown: false }} component={LogIn} />
-            <Stack.Screen name="CreateAccount" options={{ headerTitle: false, headerTransparent: true, headerTintColor: "white" }} component={CreateAccount} />
+            <Stack.Screen name="CreateAccount" component={CreateAccount} />
         </Stack.Navigator>
     );
 }
