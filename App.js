@@ -1,8 +1,32 @@
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import React, { useState } from 'react';
+import { Asset } from "expo-asset";
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import { Ionicons } from "@expo/vector-icons"
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+  // 앱을 로딩중일 때 앱 로딩을 표시하는 화면을 만들어주는 기능
+  const [ loading, setLoading ] = useState(true);
+  
+  // 앱 로딩이 끝나면 끝났다고 알려주는 기능
+  const onFinish = () => setLoading(false);
+
+  // 앱 로딩을 시작하면 시작한다고 알려주는 기능, preload는 항상 promise를 리턴해야됨
+  const preload = () => {
+    // ionicons 아이콘을 로드해옴
+    const fontsToLoad = [Ionicons.font];
+    const fontPromises = fontsToLoad.map(font => Font.loadAsync(font));
+    const imagesToLoad = [require("./assets/login_logo.png")];
+    const imagePromises = imagesToLoad.map(image => Asset.loadAsync(image))
+    return Promise.all([...fontPromises, ...imagePromises]);
+  }
+
+  // 앱을 로딩중일 때 앱 로딩을 표시하는 화면을 만들어주는 기능
+  if (loading) {
+    return <AppLoading startAsync={preload} onError={console.warn} onFinish={onFinish} />
+  }
   return (
     <View style={styles.container}>
       <Text>Open up App.js to start working on your app!</Text>
