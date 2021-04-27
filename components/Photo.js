@@ -16,7 +16,7 @@ const UserAvatar = styled.Image`
     margin-right: 10px;
     width: 25px;
     height: 25px;
-    border-radius: 13;
+    border-radius: 13px;
 `;
 const Username = styled.Text`
     color: white;
