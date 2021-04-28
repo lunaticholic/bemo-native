@@ -2,6 +2,7 @@ import { ApolloClient, createHttpLink, InMemoryCache, makeVar } from "@apollo/cl
 import { setContext } from "@apollo/client/link/context";
 import { offsetLimitPagination } from "@apollo/client/utilities";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { onError } from "@apollo/client/link/error";
 
 export const isLoggedInVar = makeVar(false);
 // 토큰이 발급될 떄마다 reactive variable 상에서 token을 사용할 수 있도록 준비가 되어 있다는 뜻
@@ -39,11 +40,17 @@ const authLink = setContext((_, { headers }) => {
     };
 });
 
-export const cache = new InMemoryCache({ typePolicies: { Query: { fields: { seeFeed: offsetLimitPagination() } } } } );
-  
-  const client = new ApolloClient({
-    link: authLink.concat(httpLink),
-    cache,
+const onErrorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+        console.log(`GraphQL Error`, graphQLErrors);
+    }
+    if (networkError) {
+        console.log("Network Error", networkError);
+    }
 });
+
+export const cache = new InMemoryCache({ typePolicies: { Query: { fields: { seeFeed: offsetLimitPagination() } } } } );
+
+const client = new ApolloClient({ link: authLink.concat(onErrorLink).concat(httpLink), cache });
 
 export default client;

@@ -27,3 +27,5 @@
 ### npm install expo-file-system
 
 ### npm install @react-native-community/slider
+
+### npm install apollo-upload-client
