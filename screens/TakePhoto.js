@@ -1,6 +1,7 @@
 import { Camera } from "expo-camera";
 import React, { useEffect, useState } from "react";
 import { StatusBar, TouchableOpacity } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -43,6 +44,8 @@ const CloseButton = styled.TouchableOpacity`
 `;
 
 export default function TakePhoto({ navigation }) {
+    const camera = useRef();
+    const [cameraReady, setCameraReady] = useState(false);
     const [ok, setOk] = useState(false);
     const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off);
     const [zoom, setZoom] = useState(0);
@@ -76,10 +79,20 @@ export default function TakePhoto({ navigation }) {
             setFlashMode(Camera.Constants.FlashMode.off);
         }
     };
+    const onCameraReady = () => setCameraReady(true);
+    const takePhoto = async () => {
+        if (camera.current && cameraReady) {
+        const photo = await camera.current.takePictureAsync({
+            quality: 1,
+            exif: true,
+        });
+        console.log(photo);
+        }
+    };
     return (
         <Container>
             <StatusBar hidden={true} />
-                <Camera type={cameraType} style={{ flex: 1 }} zoom={zoom} flashMode={flashMode} >
+                <Camera type={cameraType} style={{ flex: 1 }} zoom={zoom} flashMode={flashMode} ref={camera} onCameraReady={onCameraReady}>
                     <CloseButton onPress={() => navigation.navigate("Tabs")}>
                         <Ionicons name="close" color="white" size={30} />
                     </CloseButton>
@@ -96,7 +109,7 @@ export default function TakePhoto({ navigation }) {
                     />
                 </SliderContainer>
                 <ButtonsContainer>
-                    <TakePhotoBtn />
+                    <TakePhotoBtn onPress={takePhoto} />
                     <ActionsContainer>
                         <TouchableOpacity onPress={onFlashChange} style={{ marginRight: 30 }} >
                             <Ionicons

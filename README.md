@@ -23,3 +23,7 @@
 ### npm install expo-camera
 
 ### npm install @react-native-community/slider
+
+### npm install expo-file-system
+
+### npm install @react-native-community/slider
