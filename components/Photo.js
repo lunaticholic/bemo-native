@@ -57,10 +57,11 @@ const ExtraContainer = styled.View`
 function Photo({ id, user, caption, file, isLiked, likes }) {
     const navigation = useNavigation();
     const { width, height } = useWindowDimensions();
-    const [imageHeight, setImageHeight] = useState(height - 450);
+    const [imageHeight, setImageHeight] = useState(height - 300);
     useEffect(() => {
         Image.getSize(file, (width, height) => {
-        setImageHeight(height / 3);
+        // 불러온 이미지에서 height를 1.2로 나눈 값을 화면에 표출된 이미지의 height값으로 설정한다.
+        setImageHeight(height / 1.2);
         });
     }, [file]);
     const updateToggleLike = (cache, result) => {
@@ -100,7 +101,7 @@ function Photo({ id, user, caption, file, isLiked, likes }) {
                 <Ionicons name="chatbubble-outline" color="white" size={22} />
             </Action>
         </Actions>
-            <TouchableOpacity onPress={() => navigation.navigate("Likes")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Likes", { photoId: id })}>
                 <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
             </TouchableOpacity>
             <Caption>
