@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import * as MediaLibrary from "expo-media-library";
-import { FlatList, Image, TouchableOpacity, useWindowDimensions } from "react-native";
+import { FlatList, Image, TouchableOpacity, useWindowDimensions, StatusBar } from "react-native";
 import { colors } from "../colors";
 import styled from "styled-components";
 
@@ -92,6 +92,7 @@ export default function SelectPhoto({ navigation }) {
     );
     return (
         <Container>
+            <StatusBar />
             <Top>
             {chosenPhoto !== "" ? (
                 <Image
