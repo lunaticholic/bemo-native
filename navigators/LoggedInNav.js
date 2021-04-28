@@ -1,14 +1,15 @@
 import React from "react";
+import useMe from "../hooks/useMe";
 import SharedStackNav from "./SharedStackNav";
 import TabIcon from "../components/auth/TabIcon";
-import StackNavFactory from "./SharedStackNav";
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tabs = createBottomTabNavigator();
 
 // 이것은 tap 네비게이터임, 어떠한 탭을 눌러 화면을 넘어가는것을 의미함
 export default function LoggedInNav() {
+    const { data } = useMe();
     return (
         <Tabs.Navigator 
             tabBarOptions={{
@@ -45,7 +46,16 @@ export default function LoggedInNav() {
             </Tabs.Screen>
             <Tabs.Screen
                 name="Me"
-                options={{ tabBarIcon: ({ focused, color, size }) => ( <TabIcon iconName="person" color={color} focused={focused} /> ) }} 
+                options={{ tabBarIcon: ({ focused, color, size }) =>
+                    data?.me?.avatar ? (
+                        <Image 
+                            source={{ uri: data.me.avatar }} 
+                            style={{ height: 20, width: 20, borderRadius: 10, ...(focused && { borderColor: "white", borderWidth: 1 }) }}
+                        />
+                    ) : (
+                        <TabIcon iconName={"person"} color={color} focused={focused} />
+                    ), 
+                }} 
             >
                 {() => <SharedStackNav screenName="Me" />}
             </Tabs.Screen>
