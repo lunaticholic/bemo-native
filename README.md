@@ -15,3 +15,5 @@
 ### npm install @apollo/client graphql
 
 ### npm install @react-navigation/bottom-tabs
+
+### npm install expo-media-library
