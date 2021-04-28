@@ -35,7 +35,7 @@ export default function Login({ route: { params } }) {
         // console.log(data);
     };
     
-    const [logInMutation, { loading }] = useMutation(LOGIN_MUTATION, { onCompleted, });
+    const [logInMutation, { loading, error }] = useMutation(LOGIN_MUTATION, { onCompleted, });
     
     const onNext = (nextOne) => { nextOne?.current?.focus(); };
 

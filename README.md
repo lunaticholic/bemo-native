@@ -16,4 +16,8 @@
 
 ### npm install @react-navigation/bottom-tabs
 
+### npm install @react-navigation/material-top-tabs
+
 ### npm install expo-media-library
+
+### npm install expo-camera

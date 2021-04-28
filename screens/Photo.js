@@ -21,12 +21,12 @@ const SEE_PHOTO = gql`
     ${PHOTO_FRAGMENT}
 `;
 
-export default function Photo({ navigation }) {
+export default function PhotoScreen({ navigation }) {
     const { data, loading, refetch } = useQuery(SEE_PHOTO, {
         variables: {
             id: route?.params?.photoId,
-            },
-        });
+        },
+    });
     const [refreshing, setRefreshing] = useState();
     const onRefresh = async () => {
         setRefreshing(true);

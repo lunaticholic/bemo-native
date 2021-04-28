@@ -23,8 +23,11 @@ export const logUserOut = async () => {
     tokenVar(null);
 };
 
+// 니가 지금 핸드폰으로 사진 찍는걸 테스트 하고 싶으면 터미널 하나 열어
+// npx localtunnel --port 4000을 치면 주소 하나가 나올거야
+// 그 주소를 아래 /graphql전까지 바꿔야만 테스트할 수 있어
 const httpLink = createHttpLink({
-    uri: "http://localhost:4000/graphql",
+    uri: "https://polite-crab-54.loca.lt/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {

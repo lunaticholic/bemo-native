@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as MediaLibrary from "expo-media-library";
 import { FlatList, Image, TouchableOpacity, useWindowDimensions } from "react-native";
 import { colors } from "../colors";
+import styled from "styled-components";
 
 const Container = styled.View`
     flex: 1;
@@ -33,7 +34,7 @@ const HeaderRightText = styled.Text`
     margin-right: 7px;
 `;
 
-export default function SelectPhoto() {
+export default function SelectPhoto({ navigation }) {
     const [ok, setOk] = useState(false);
     const [photos, setPhotos] = useState([]);
     const [chosenPhoto, setChosenPhoto] = useState("");
@@ -43,19 +44,17 @@ export default function SelectPhoto() {
         setChosenPhoto(photos[0]?.uri);
     };
     const getPermissions = async () => {
-        const {
-        accessPrivileges,
-        canAskAgain,
-        } = await MediaLibrary.getPermissionsAsync();
+        const { accessPrivileges, canAskAgain, } = await MediaLibrary.getPermissionsAsync();
         if (accessPrivileges === "none" && canAskAgain) {
         const { accessPrivileges } = await MediaLibrary.requestPermissionsAsync();
+        // 사진 access에 대한 permission 여부
         if (accessPrivileges !== "none") {
             setOk(true);
             getPhotos();
         }
         } else if (accessPrivileges !== "none") {
-        setOk(true);
-        getPhotos();
+            setOk(true);
+            getPhotos();
         }
     };
     const HeaderRight = () => (
