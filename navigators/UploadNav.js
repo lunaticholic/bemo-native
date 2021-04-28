@@ -23,30 +23,30 @@ export default function UploadNav() {
                 },
             }}
         >
-        <Tab.Screen name="Select">
-            {() => (
-            <Stack.Navigator
-                screenOptions={{
-                    headerTintColor: "white",
-                    headerBackTitleVisible: false,
-                    headerBackImage: ({ tintColor }) => (
-                        <Ionicons color={tintColor} name="close" size={28} />
-                    ),
-                    headerStyle: {
-                        backgroundColor: "black",
-                        shadowOpacity: 0.3,
-                    },
-                    }}
-            >
-                <Stack.Screen
-                    name="Select"
-                    options={{ title: "Choose a photo" }}
-                    component={SelectPhoto}
-                />
-            </Stack.Navigator>
-            )}
-        </Tab.Screen>
-        <Tab.Screen name="Take" component={TakePhoto} />
+            <Tab.Screen name="Take" component={TakePhoto} />
+            <Tab.Screen name="Select">
+                {() => (
+                <Stack.Navigator
+                    screenOptions={{
+                        headerTintColor: "white",
+                        headerBackTitleVisible: false,
+                        headerBackImage: ({ tintColor }) => (
+                            <Ionicons color={tintColor} name="close" size={28} />
+                        ),
+                        headerStyle: {
+                            backgroundColor: "black",
+                            shadowOpacity: 0.3,
+                        },
+                        }}
+                >
+                    <Stack.Screen
+                        name="Select"
+                        options={{ title: "Choose a photo" }}
+                        component={SelectPhoto}
+                    />
+                </Stack.Navigator>
+                )}
+            </Tab.Screen>
         </Tab.Navigator>
     );
 }
