@@ -47,6 +47,7 @@ export default function UploadNav() {
                 </Stack.Navigator>
                 )}
             </Tab.Screen>
+            <Tab.Screen name="Take" component={TakePhoto} />
         </Tab.Navigator>
     );
 }

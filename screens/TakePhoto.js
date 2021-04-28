@@ -4,6 +4,7 @@ import { Alert, Image, StatusBar, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/core";
 
 const Container = styled.View`
     flex: 1;
@@ -97,8 +98,10 @@ export default function TakePhoto({ navigation }) {
         if (save) {
             await MediaLibrary.saveToLibraryAsync(takenPhoto);
         }
-        console.log("Will upload", takenPhoto);
-        };
+        navigation.navigate("UploadForm", {
+            file: takenPhoto,
+        });
+    };
     const onUpload = () => {
         Alert.alert("Save photo?", "Save photo & upload or just upload", [
             { text: "Save & Upload", onPress: () => goToUpload(true) },
@@ -115,9 +118,11 @@ export default function TakePhoto({ navigation }) {
         setTakenPhoto(uri);
         }
     };
+    const onDismiss = () => setTakenPhoto("");
+    const isFocused = useIsFocused();
     return (
         <Container>
-            <StatusBar hidden={true} />
+            {isFocused ? <StatusBar hidden={true} /> : null}
             {takenPhoto === "" ? (
                 <Camera type={cameraType} style={{ flex: 1 }} zoom={zoom} flashMode={flashMode} ref={camera} onCameraReady={onCameraReady}>
                     <CloseButton onPress={() => navigation.navigate("Tabs")}>
