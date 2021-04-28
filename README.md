@@ -21,3 +21,5 @@
 ### npm install expo-media-library
 
 ### npm install expo-camera
+
+### npm install @react-native-community/slider
